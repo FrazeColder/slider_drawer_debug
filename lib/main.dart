@@ -33,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  final useSafeArea = false;
 
   void incrementCounter() {
     setState(() {
@@ -49,85 +48,87 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var useSafeArea = false;
+
     return Scaffold(
       body: SliderDrawer(
+        slider: Container(color: Colors.red),
         appBar: const SliderAppBar(
           title: Text('Hello World'),
           isTitleCenter: true,
         ),
-        slider: Container(color: Colors.red),
-        child: Scaffold(
-          backgroundColor: Colors.blue,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search),
-                label: 'Search',
-              ),
-            ],
-          ),
-          body: useSafeArea ? SafeArea(child: getContent()) : getContent(),
-        ),
+        child: useSafeArea ? SafeArea(child: getContent()) : getContent(),
       ),
     );
   }
 
-  Column getContent() {
-    return Column(
-      children: [
-        Container(
-          height: 45,
-          color: Colors.grey,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              InkWell(
-                onTap: () {
-                  print("Pressed Plus Button!");
-                  incrementCounter();
-                },
-                child: Container(
-                  color: Colors.green,
-                  padding: EdgeInsets.only(left: 15, right: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Plus +")],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  print("Pressed Minus Button!");
-                  decrementCounter();
-                },
-                child: Container(
-                  color: Colors.red,
-                  padding: EdgeInsets.only(left: 15, right: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Minus +")],
-                  ),
-                ),
-              )
-            ],
+  Scaffold getContent() {
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home),
+            label: 'Home',
           ),
-        ),
-        Column(
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.search),
+            label: 'Search',
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 45,
+            color: Colors.grey,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                InkWell(
+                  onTap: () {
+                    print("Pressed Plus Button!");
+                    incrementCounter();
+                  },
+                  child: Container(
+                    color: Colors.green,
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Text("Plus +")],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    print("Pressed Minus Button!");
+                    decrementCounter();
+                  },
+                  child: Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Text("Minus +")],
+                    ),
+                  ),
+                )
+              ],
             ),
-            Text(
-              _counter.toString(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        )
-      ],
+          ),
+          Column(
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                _counter.toString(),
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
